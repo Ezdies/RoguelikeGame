@@ -23,7 +23,12 @@ class Player(pygame.sprite.Sprite):
 
     def update(self):
 
-        self.rect.clamp_ip(screen.get_rect())
+        if self.rect.left < 0 or self.rect.right > width:
+            self.rect.x = max(0, min(self.rect.x, width - self.rect.width))
+
+        if self.rect.top < 0 or self.rect.bottom > height:
+            self.rect.y = max(0, min(self.rect.y, height - self.rect.height))
+
         keys = pygame.key.get_pressed()
         movements = {
             pygame.K_LEFT: (-self.speed, 0),
